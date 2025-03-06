@@ -1,12 +1,12 @@
 <script>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import Hijo from './components/Hijo.vue'
 
 export default {
   data() {
     return {
       message: 'Mensaje desde data',
       contadorLikes: 10,
+      textoPadre: 'Texto desde el padre',
     }
   },
 
@@ -14,10 +14,14 @@ export default {
     incrementarLikes() {
       this.contadorLikes = this.contadorLikes + 1
     },
+
+    actualizarTextoPadre(texto) {
+      this.textoPadre = texto
+    },
   },
 
   components: {
-    'hello-world': HelloWorld,
+    'hello-world': Hijo,
   },
 }
 </script>
@@ -26,16 +30,32 @@ export default {
   <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
-      <hello-world v-bind:msg="message" v-bind:contador-likes="contadorLikes" />
-      <button v-on:click="incrementarLikes">Dar Like</button>
+    <div>
+      <!-- <div>
+        <button v-on:click="incrementarLikes">Dar Like</button>
+      </div> -->
+      <h1 class="green">Padre</h1>
+      <div>
+        <p>Input en el padre</p>
+        <input v-model="textoPadre" />
+      </div>
 
+      <hello-world
+        style="margin-top: 50px"
+        v-bind:msg="message"
+        v-bind:contador-likes="contadorLikes"
+        v-bind:texto="textoPadre"
+        v-on:cambio-de-valor="actualizarTextoPadre"
+      />
+    </div>
+
+    <!-- <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <a href="/about">About con tag de a</a>
       </nav>
-    </div>
+    </div> -->
   </header>
 
   <RouterView />
